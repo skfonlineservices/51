@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Website</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+              #home-content {
+    text-align: center;
+    margin-top: 50px; /* Adjust as needed */
+    padding: 20px;
+}
+       header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="url"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        #user-profile {
+            text-align: center;
+        }
+        #profile-info img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 50%;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Profile Website</h1>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="https://skfonlineservices51.blogspot.com/" id="home-link">Home</a></li>
+                <li><a href="#" id="signup-link" onclick="toggleSignUpForm()">Sign Up</a></li>
+                <li><a href="#" id="signin-link" onclick="signIn()">Sign In</a></li>
+                <li><a href="#" id="logout" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>  
+        <section id="signup-form" style="display: none;">
+            <h2>Sign Up</h2>
+            <form id="signup-form-element" onsubmit="return signUp()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" required><br>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+                
+                <label for="website">Website Link:</label>
+                <input type="url" id="website" name="website"><br>
+                
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country"><br>
+                
+                <label for="profile-image">Profile Image:</label>
+                <input type="file" id="profile-image" name="profile-image"><br>
+                
+                <input type="submit" value="Sign Up">
+            </form>
+        </section>
+        
+        <section id="user-profile" style="display: none;">
+            <h2>User Profile</h2>
+            <div id="profile-info"></div>
+        </section>
+ 
+      <section id="home-content">
+        <h2> Welcome to our User Profile Website!</h2>
+       <p>Here, you can create your own profile and connect with others. Sign up now to get started!</p>
+    </section>      
+    </main>
+    
+    <footer>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+    </footer>
+
+    <script>
+        function toggleSignUpForm() {
+            var passwordAttempt = prompt("Enter the lock code to proceed:");
+            if (passwordAttempt === "041219900625") {
+                var signUpForm = document.getElementById("signup-form");
+                signUpForm.style.display = (signUpForm.style.display === "none") ? "block" : "none";
+            } else {
+                alert("Incorrect lock code! You are not authorized to proceed.");
+            }
+        }
+
+        function signUp() {
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var website = document.getElementById("website").value;
+            var country = document.getElementById("country").value;
+            var profileImage = document.getElementById("profile-image").value;
+            
+            var userData = {
+                name: name,
+                surname: surname,
+                email: email,
+                password: password,
+                website: website,
+                country: country,
+                profileImage: profileImage
+            };
+            localStorage.setItem(email, JSON.stringify(userData));
+            alert("Sign up successful!");
+
+            // Automatically add dofollow backlink
+            var backlinkElement = document.createElement("a");
+            backlinkElement.href = website;
+            backlinkElement.textContent = "Visit User's Website";
+            backlinkElement.rel = "dofollow";
+            backlinkElement.target = "_blank";
+            document.getElementById("user-profile").appendChild(backlinkElement);
+
+            document.getElementById("nav-links").removeChild(document.getElementById("signup-link"));
+            document.getElementById("nav-links").removeChild(document.getElementById("signin-link"));
+            document.getElementById("nav-links").appendChild(document.getElementById("logout"));
+            return false; // Prevent form submission
+        }
+
+        function signIn() {
+            var email = prompt("Enter your email:");
+            var password = prompt("Enter your password:");
+            var userData = JSON.parse(localStorage.getItem(email));
+            if (userData && userData.password === password) {
+                // Sign in successful, display user profile
+                document.getElementById("user-profile").style.display = "block";
+                document.getElementById("signup-form").style.display = "none";
+                document.getElementById("logout").style.display = "block"; // Show logout button
+                var profileInfo = document.getElementById("profile-info");
+                profileInfo.innerHTML = "<p>Name: " + userData.name + "</p>" +
+                                        "<p>Surname: " + userData.surname + "</p>" +
+                                        "<p>Email: " + userData.email + "</p>" +
+                                        "<p>Website: <a href='" + userData.website + "' target='_blank'>" + userData.website + "</a></p>" +
+                                        "<p>Country: " + userData.country + "</p>" +
+                                        "<p>Profile Image: <img src='" + userData.profileImage + "' alt='Profile Image'></p>";
+            } else {
+                alert("Invalid email or password!");
+            }
+        }
+
+        function logout() {
+            // Clear user profile and show sign-up form
+            document.getElementById("user-profile").style.display = "none";
+            document.getElementById("signup-form").style.display = "block";
+            document.getElementById("logout").style.display = "none"; // Hide logout button
+            document.getElementById("nav-links").appendChild(document.getElementById("signup-link"));
+            document.getElementById("nav-links").appendChild(document.getElementById("signin-link"));
+        }
+    </script>
+</body>
+</html>
